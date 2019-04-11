@@ -924,7 +924,7 @@ class PHPGraphLib {
 
 	protected function displayErrors() 
 	{
-		if (count($this->error) > 0) {
+		if (!empty($this->error)) {
 			$lineHeight = 12;
 			$errorColor = imagecolorallocate($this->image, 0, 0, 0);
 			$errorBackColor = imagecolorallocate($this->image, 255, 204, 0);
@@ -962,11 +962,11 @@ class PHPGraphLib {
 					$high_x = $xIndex;
 					$force_set_x = 0;
 				}
-				if ($i < $low_x) {
-					$low_x = $i;
+				if ($xIndex < $low_x) {
+					$low_x = $xIndex;
 				}
-				if ($i > $high_x) {
-					$high_x = $i;
+				if ($xIndex > $high_x) {
+					$high_x = $xIndex;
 				}
 				if (!is_numeric($item)) {
 					unset($this->data_array[$data_set_num][$key]);
