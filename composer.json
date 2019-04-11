@@ -6,6 +6,7 @@
     "homepage": "http://github.com/elliottb/phpgraphlib",
     "license": "MIT",
     "require": {
-        "php": ">=5.0.0"
+        "php": ">=5.0.0",
+        "ext-gd": "*"
     }
 }
