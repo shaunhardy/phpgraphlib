@@ -405,11 +405,11 @@ class PHPGraphLib {
 						//draw gradient if desired
 						$this->drawGradientBar($x1, $y1, $x2, $y2, $this->multi_gradient_colors_1[$data_set_num], $this->multi_gradient_colors_2[$data_set_num], $data_set_num);
 					} else {
-						imagefilledrectangle($this->image, $x1, $y1,$x2, $y2,  $this->multi_bar_colors[$data_set_num]);
+						imagefilledrectangle($this->image, (int) $x1, (int) $y1, (int) $x2, (int) $y2,  $this->multi_bar_colors[$data_set_num]);
 					}
 					//draw bar outline	
 					if ($this->bool_bar_outline && !$hideBarOutline) { 
-						imagerectangle($this->image, $x1, $y2, $x2, $y1, $this->outline_color); 
+						imagerectangle($this->image, (int) $x1, (int) $y2, (int) $x2, (int) $y1, $this->outline_color);
 					}
 				}
 				// draw line
@@ -417,7 +417,7 @@ class PHPGraphLib {
 					$lineX1 = $x1 + ($this->bar_width / 2); //MIDPOINT OF BARS, IF SHOWN
 					$lineY1 = $y1;
 					if (isset($lineX2)) {
-						imageline($this->image, $lineX2, $lineY2, $lineX1, $lineY1, $this->line_color[$data_set_num]);
+						imageline($this->image, (int) $lineX2, (int) $lineY2, (int) $lineX1, (int) $lineY1, $this->line_color[$data_set_num]);
 						$lineX2 = $lineX1;
 						$lineY2 = $lineY1;
 					} else {
@@ -455,7 +455,7 @@ class PHPGraphLib {
 					}
 					//recenter data position if necessary
 					$dataX -= ($this->data_additional_length * self::DATA_VALUE_TEXT_WIDTH) / 2;
-					imagestring($this->image, 2, $dataX, $dataY, $item,  $this->data_value_color);
+					imagestring($this->image, 2, (int) $dataX, (int) $dataY, $item,  $this->data_value_color);
 				}
 				//write x axis value 
 				if ($this->bool_x_axis_values) {
@@ -475,11 +475,11 @@ class PHPGraphLib {
 							if ($this->x_axis_value_interval) {
 								if ($key % $this->x_axis_value_interval) {
 								} else {
-									imagestringup($this->image, 2, $textHorizPos, $textVertPos, $key,  $this->x_axis_text_color);
+									imagestringup($this->image, 2, (int) $textHorizPos, (int) $textVertPos, $key,  $this->x_axis_text_color);
 								}
 							}
 							else {
-								imagestringup($this->image, 2, $textHorizPos, $textVertPos, $key,  $this->x_axis_text_color);
+								imagestringup($this->image, 2, (int) $textHorizPos, (int) $textVertPos, $key,  $this->x_axis_text_color);
 							}
 						}
 						else {
@@ -499,10 +499,10 @@ class PHPGraphLib {
 							if ($this->x_axis_value_interval) {
 								if ($key % $this->x_axis_value_interval) {
 								} else {
-									imagestring($this->image, 2, $textHorizPos, $textVertPos, $key,  $this->x_axis_text_color);
+									imagestring($this->image, 2, (int) $textHorizPos, (int) $textVertPos, $key,  $this->x_axis_text_color);
 								}
 							} else {
-								imagestring($this->image, 2, $textHorizPos, $textVertPos, $key,  $this->x_axis_text_color);
+								imagestring($this->image, 2, (int) $textHorizPos, (int) $textVertPos, $key,  $this->x_axis_text_color);
 							}
 						}
 					}
@@ -626,12 +626,12 @@ class PHPGraphLib {
 				if ($adjusted_index < 0) {
 					$adjusted_index = 0;
 				}
-				imageline($this->image, $x1+$i, $y1, $x1 + $i, $y2, $this->gradient_color_array[$data_set_num][$adjusted_index]);		
+				imageline($this->image, (int) $x1+$i, (int) $y1, (int) $x1 + $i, (int) $y2, $this->gradient_color_array[$data_set_num][$adjusted_index]);
 			}
 		} else {
 			//normal gradients with colors < self::GRADIENT_MAX_COLORS
 			for ($i = 0; $i < $numLines; $i++) {
-				imageline($this->image, $x1+$i, $y1, $x1+$i, $y2, $this->gradient_color_array[$data_set_num][$i]);		
+				imageline($this->image, (int) $x1+$i, (int) $y1, (int) $x1+$i, (int) $y2, $this->gradient_color_array[$data_set_num][$i]);
 			}
 		}
 	}
@@ -739,7 +739,7 @@ class PHPGraphLib {
 	{
 		$step  = 3;
 		for ($i = $x_axis_x1; $i < $x_axis_x2 -1; $i += ($step*2)) {
-			imageline($this->image, $i, $yLocation,  $i + $step - 1, $yLocation, $color);
+			imageline($this->image, (int) $i, (int) $yLocation,  (int) $i + $step - 1, (int) $yLocation, $color);
 		}
 	}
 
@@ -747,17 +747,17 @@ class PHPGraphLib {
 	{
 		//loop through and display values
 		foreach ($this->horiz_grid_lines as $line) {
-			imageline($this->image, $line['x1'], $line['y1'], $line['x2'], $line['y2'] , $line['color']);
+			imageline($this->image, (int) $line['x1'], (int) $line['y1'], (int) $line['x2'], (int) $line['y2'] , $line['color']);
 		}
 		foreach ($this->vert_grid_lines as $line) {
-			imageline($this->image, $line['x1'], $line['y1'], $line['x2'], $line['y2'] , $line['color']);
+			imageline($this->image, (int) $line['x1'], (int) $line['y1'], (int) $line['x2'], (int) $line['y2'] , $line['color']);
 		}
 		foreach ($this->horiz_grid_values as $value) {
-			imagestring($this->image, $value['size'], $value['x'], $value['y'], $value['value'], $value['color']);
+			imagestring($this->image, $value['size'], (int) $value['x'], (int) $value['y'], $value['value'], $value['color']);
 		}
 		//not implemented in the base library, but used in extensions
 		foreach ($this->vert_grid_values as $value) {
-			imagestring($this->image, $value['size'], $value['x'], $value['y'], $value['value'], $value['color']);
+			imagestring($this->image, $value['size'], (int) $value['x'], (int) $value['y'], $value['value'], $value['color']);
 		}
 	}
 
@@ -774,7 +774,7 @@ class PHPGraphLib {
 				$this->imagelinedashed($this->image, $this->x_axis_x1, $yLocation, $this->x_axis_x2, $color);
 			} else {
 				//a solid line is the default if a style condition is not matched
-				imageline($this->image, $this->x_axis_x1, $yLocation, $this->x_axis_x2 , $yLocation, $color);
+				imageline($this->image, (int) $this->x_axis_x1, (int) $yLocation, (int) $this->x_axis_x2 , (int) $yLocation, $color);
 			}
 		}
 	}
@@ -782,23 +782,23 @@ class PHPGraphLib {
 	protected function generateDataPoints() 
 	{
 		foreach ($this->data_point_array as $pointArray) {
-			imagefilledellipse($this->image, $pointArray[0], $pointArray[1], $this->data_point_width, $this->data_point_width, $this->data_point_color);
+			imagefilledellipse($this->image, (int) $pointArray[0], (int) $pointArray[1], (int) $this->data_point_width, (int) $this->data_point_width, $this->data_point_color);
 		}		
 	}
 
 	protected function generateXAxis() 
 	{
-		imageline($this->image, $this->x_axis_x1, $this->x_axis_y1, $this->x_axis_x2, $this->x_axis_y2, $this->x_axis_color);
+		imageline($this->image, (int) $this->x_axis_x1, (int) $this->x_axis_y1, (int) $this->x_axis_x2, (int) $this->x_axis_y2, $this->x_axis_color);
 	}
 
 	protected function generateYAxis() 
 	{
-		imageline($this->image, $this->y_axis_x1, $this->y_axis_y1, $this->y_axis_x2, $this->y_axis_y2, $this->y_axis_color);
+		imageline($this->image, (int) $this->y_axis_x1, (int) $this->y_axis_y1, (int) $this->y_axis_x2, (int) $this->y_axis_y2, $this->y_axis_color);
 	}
 
 	protected function generateBackgound() 
 	{
-		imagefilledrectangle($this->image, 0, 0, $this->width, $this->height, $this->background_color);
+		imagefilledrectangle($this->image, 0, 0, (int) $this->width, (int) $this->height, $this->background_color);
 	}
 
 	protected function generateTitle() 
@@ -818,7 +818,7 @@ class PHPGraphLib {
 			$this->title_x = $this->x_axis_x2 - ($titleLength * self::TITLE_CHAR_WIDTH);
 			$this->title_y = $textVertPos;
 		}
-		imagestring($this->image, 2, $title_x , $title_y , $this->title_text,  $this->title_color);
+		imagestring($this->image, 2, (int) $title_x , (int) $title_y , $this->title_text,  $this->title_color);
 	}
 
 	protected function calcTopMargin() 
@@ -928,14 +928,14 @@ class PHPGraphLib {
 			$lineHeight = 12;
 			$errorColor = imagecolorallocate($this->image, 0, 0, 0);
 			$errorBackColor = imagecolorallocate($this->image, 255, 204, 0);
-			imagefilledrectangle($this->image, 0, 0, $this->width - 1, 2 * $lineHeight,  $errorBackColor);
+			imagefilledrectangle($this->image, 0, 0, (int) $this->width - 1, (int) 2 * $lineHeight,  $errorBackColor);
 			imagestring($this->image, 3, 2, 0, "!!----- PHPGraphLib Error -----!!",  $errorColor);
 			foreach($this->error as $key => $errorText) {
-				imagefilledrectangle($this->image, 0, ($key * $lineHeight) + $lineHeight, $this->width - 1, ($key * $lineHeight) + 2 * $lineHeight,  $errorBackColor);	
-				imagestring($this->image, 2, 2, ($key * $lineHeight) + $lineHeight, "[". ($key + 1) . "] ". $errorText,  $errorColor);	
+				imagefilledrectangle($this->image, 0, (int) ($key * $lineHeight) + $lineHeight, (int) $this->width - 1, (int) ($key * $lineHeight) + 2 * $lineHeight,  $errorBackColor);
+				imagestring($this->image, 2, 2, (int) ($key * $lineHeight) + $lineHeight, "[". ($key + 1) . "] ". $errorText,  $errorColor);
 			}
 			$errorOutlineColor = imagecolorallocate($this->image, 255, 0, 0);
-			imagerectangle($this->image, 0, 0, $this->width-1,($key * $lineHeight) + 2 * $lineHeight,  $errorOutlineColor);		
+			imagerectangle($this->image, 0, 0, (int) $this->width-1,(int) ($key * $lineHeight) + 2 * $lineHeight,  $errorOutlineColor);
 		}
 	}
 
@@ -1584,12 +1584,12 @@ class PHPGraphLib {
 		$this->legend_y = ($highestElement / 2) - ($this->legend_height / 2); //centered
 
 		//draw background
-		imagefilledrectangle($this->image, $this->legend_x, $this->legend_y, $this->legend_x + $this->legend_width,
-			$this->legend_y + $this->legend_height, $this->legend_color);
+		imagefilledrectangle($this->image, (int) $this->legend_x, (int) $this->legend_y, (int) $this->legend_x + $this->legend_width,
+            (int) $this->legend_y + $this->legend_height, $this->legend_color);
 
 		//draw border
-		imagerectangle($this->image, $this->legend_x, $this->legend_y, $this->legend_x + $this->legend_width,
-			$this->legend_y + $this->legend_height, $this->legend_outline_color);
+		imagerectangle($this->image, (int) $this->legend_x, (int) $this->legend_y, (int) $this->legend_x + $this->legend_width,
+            (int) $this->legend_y + $this->legend_height, $this->legend_outline_color);
 
 		$length_covered = 0;
 		for ($i = 0; $i < $this->data_set_count; $i++) {
@@ -1610,9 +1610,9 @@ class PHPGraphLib {
 			} elseif ($this->bool_line && !$this->bool_bars) {
 				$color = $this->line_color[$this->data_set_count - $i - 1];
 			}
-			imagefilledrectangle($this->image, $xValue, $yValue + $swatchToTextOffset, $xValue + $swatchSize, $yValue + $swatchToTextOffset + $swatchSize, $color);
-			imagerectangle($this->image, $xValue, $yValue + $swatchToTextOffset, $xValue + $swatchSize, $yValue + $swatchToTextOffset + $swatchSize, $this->legend_swatch_outline_color);	
-			imagestring($this->image, 2, $xValue + (2 * self::LEGEND_PADDING + 2), $yValue, $data_label, $this->legend_text_color);
+			imagefilledrectangle($this->image, (int) $xValue, (int) $yValue + $swatchToTextOffset, (int) $xValue + $swatchSize, (int) $yValue + $swatchToTextOffset + $swatchSize, $color);
+			imagerectangle($this->image, (int) $xValue, (int) $yValue + $swatchToTextOffset, (int) $xValue + $swatchSize, (int) $yValue + $swatchToTextOffset + $swatchSize, $this->legend_swatch_outline_color);
+			imagestring($this->image, 2, (int) $xValue + (2 * self::LEGEND_PADDING + 2), (int) $yValue, $data_label, $this->legend_text_color);
 		}
 	}
 
