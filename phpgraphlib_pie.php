@@ -162,11 +162,11 @@ class PHPGraphLibPie extends PHPGraphLib
 		$this->pie_legend_x = $a + $c;
 		$this->pie_legend_y = ($this->height - $pie_legend_height) / 2;		
 		//background
-		imagefilledrectangle($this->image, $this->pie_legend_x, $this->pie_legend_y, $this->pie_legend_x + $pie_legend_width, 
-			$this->pie_legend_y + $pie_legend_height, $this->legend_color);
+		imagefilledrectangle($this->image, (int) $this->pie_legend_x, (int) $this->pie_legend_y, (int) $this->pie_legend_x + $pie_legend_width,
+            (int) $this->pie_legend_y + $pie_legend_height, $this->legend_color);
 		//border
-		imagerectangle($this->image, $this->pie_legend_x, $this->pie_legend_y, $this->pie_legend_x + $pie_legend_width, 
-			$this->pie_legend_y + $pie_legend_height, $this->legend_outline_color);
+		imagerectangle($this->image, (int) $this->pie_legend_x, (int) $this->pie_legend_y, (int) $this->pie_legend_x + $pie_legend_width,
+            (int) $this->pie_legend_y + $pie_legend_height, $this->legend_outline_color);
 		$xValue = $this->pie_legend_x + self::PIE_LEGEND_PADDING;
 		$count = 0;
 		$this->resetColorPointer();
@@ -176,13 +176,13 @@ class PHPGraphLibPie extends PHPGraphLib
 			$yValue = $this->pie_legend_y + self::PIE_LEGEND_TEXT_HEIGHT * $count + self::PIE_LEGEND_PADDING;
 			//draw color boxes
 			$color = $this->generateNextColor();
-			imagefilledrectangle($this->image, $xValue, $yValue + $swatchToTextOffset, $xValue + $swatchSize, $yValue + $swatchToTextOffset + $swatchSize, $color);
-			imagerectangle($this->image, $xValue, $yValue + $swatchToTextOffset, $xValue + $swatchSize, $yValue + $swatchToTextOffset + $swatchSize, $this->legend_swatch_outline_color);	
+			imagefilledrectangle($this->image, (int) $xValue, (int) $yValue + $swatchToTextOffset, (int) $xValue + $swatchSize, (int) $yValue + $swatchToTextOffset + $swatchSize, $color);
+			imagerectangle($this->image, (int) $xValue, (int) $yValue + $swatchToTextOffset, (int) $xValue + $swatchSize, (int) $yValue + $swatchToTextOffset + $swatchSize, $this->legend_swatch_outline_color);
 			//if longer than our max, trim text
 			if ($maxChars) { 
 				$dataText = substr($dataText,0, $maxChars); 
 			}
-			imagestring($this->image, 2, $xValue + (2 * self::PIE_LEGEND_PADDING), $yValue, $dataText, $this->legend_text_color);
+			imagestring($this->image, 2, (int) $xValue + (2 * self::PIE_LEGEND_PADDING), (int) $yValue, $dataText, $this->legend_text_color);
 			$count++;
 		}
 	}
@@ -198,7 +198,7 @@ class PHPGraphLibPie extends PHPGraphLib
 				// generate a darker version of the indexed color
 				// do not draw if the value is zero
 				if (! $value == 0){
-					imagefilledarc($this->image, $this->pie_center_x, $i, $this->pie_width, $this->pie_height, $arcStart, (360 * $value) + $arcStart, $color, IMG_ARC_PIE);
+					imagefilledarc($this->image, (int) $this->pie_center_x, (int) $i, (int) $this->pie_width, (int) $this->pie_height, (int) $arcStart, (int) (360 * $value) + $arcStart, $color, IMG_ARC_PIE);
 					$arcStart += 360*$value;
 				}
 			}
@@ -209,7 +209,7 @@ class PHPGraphLibPie extends PHPGraphLib
 			$color = $this->generateNextColor();
 			// do not draw if the value is zero
 			if (! $value == 0){
-				imagefilledarc($this->image, $this->pie_center_x, $this->pie_center_y, $this->pie_width, $this->pie_height, $arcStart, (360*$value)+$arcStart, $color, IMG_ARC_PIE);
+				imagefilledarc($this->image, (int) $this->pie_center_x, (int) $this->pie_center_y, (int) $this->pie_width, (int) $this->pie_height, (int) $arcStart, (int) (360*$value)+$arcStart, $color, IMG_ARC_PIE);
 				$arcStart += 360 * $value;
 			}
 			if ($this->bool_data_labels) { 
@@ -232,7 +232,7 @@ class PHPGraphLibPie extends PHPGraphLib
 		$valueArray = $this->dataLabelHandicap($valueX, $valueY, $displayValue, $midway);
 		$valueX = $valueArray[0];
 		$valueY = $valueArray[1];	
-		imagestring($this->image, 2, $valueX, $valueY, $displayValue, $this->label_text_color);
+		imagestring($this->image, 2, (int) $valueX, (int) $valueY, $displayValue, $this->label_text_color);
 	}
 
 	protected function formatPercent($input) 
@@ -342,7 +342,7 @@ class PHPGraphLibPie extends PHPGraphLib
 		} else {
 			$title_y = ($topElement / 2) - (self::TITLE_CHAR_HEIGHT / 2);
 			$title_x = ($this->width / 2) - ((strlen($this->title_text) * self::TITLE_CHAR_WIDTH) / 2);
-			imagestring($this->image, 2, $title_x , $title_y , $this->title_text,  $this->title_color);
+			imagestring($this->image, 2, (int) $title_x , (int) $title_y , $this->title_text,  $this->title_color);
 		}
 	}
 

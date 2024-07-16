@@ -98,11 +98,11 @@ class PHPGraphLibStacked extends PHPGraphLib
 					if ($this->bool_gradient) {
 						$this->drawGradientBar($x1, $y1, $x2, $y2, $this->multi_gradient_colors_1[$data_set_num], $this->multi_gradient_colors_2[$data_set_num], $data_set_num);
 					} else {
-						imagefilledrectangle($this->image, $x1, $y1,$x2, $y2,  $this->multi_bar_colors[$data_set_num]);
+						imagefilledrectangle($this->image, (int) $x1, (int) $y1, (int) $x2, (int) $y2,  $this->multi_bar_colors[$data_set_num]);
 					}
 					//draw bar outline
 					if ($this->bool_bar_outline && !$hideBarOutline) {
-						imagerectangle($this->image,  $x1, $y1, $x2, $y2, $this->outline_color); 
+						imagerectangle($this->image, (int) $x1, (int) $y1, (int) $x2, (int) $y2, $this->outline_color);
 					}
 				}
 				// display data values
@@ -131,7 +131,7 @@ class PHPGraphLibStacked extends PHPGraphLib
 
 					//recenter data position if necessary
 					$dataX -= ($this->data_additional_length * self::DATA_VALUE_TEXT_WIDTH) / 2;
-					imagestring($this->image, 2, $dataX, $dataY, $item,  $this->data_value_color);
+					imagestring($this->image, 2, (int) $dataX, (int) $dataY, $item,  $this->data_value_color);
 				}
 				//write x axis value 
 				if ($this->bool_x_axis_values) {
@@ -146,7 +146,7 @@ class PHPGraphLibStacked extends PHPGraphLib
 								$textVertPos = round($this->y_axis_y1 + (strlen($key) * self::TEXT_WIDTH) + self::AXIS_VALUE_PADDING);
 							}
 							$textHorizPos = round($xStart + ($this->bar_width / 2) - (self::TEXT_HEIGHT / 2));
-							imagestringup($this->image, 2, $textHorizPos, $textVertPos, $key,  $this->x_axis_text_color);
+							imagestringup($this->image, 2, (int) $textHorizPos, (int) $textVertPos, $key,  $this->x_axis_text_color);
 						} else {
 							if ($this->bool_all_negative) {
 								//we must put values above 0 line
@@ -158,7 +158,7 @@ class PHPGraphLibStacked extends PHPGraphLib
 							}
 							//horizontal data keys
 							$textHorizPos = round($xStart + ($this->bar_width / 2) - ((strlen($key) * self::TEXT_WIDTH) / 2));
-							imagestring($this->image, 2, $textHorizPos, $textVertPos, $key,  $this->x_axis_text_color);
+							imagestring($this->image, 2, (int) $textHorizPos, (int) $textVertPos, $key,  $this->x_axis_text_color);
 						}
 					}
 				}
